@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                 <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Signup Hero -->
+    <section class="login-hero">
+        <div class="container">
+            <h1>Join AgriNOVA Hub</h1>
+            <p>Create your account and start your farming journey with us</p>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-form">
+                    <h2>Create Your Account</h2>
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="+260 000 000 000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userType">I am a:</label>
+                            <select id="userType" required>
+                                <option value="">Select account type</option>
+                                <option value="customer">Customer</option>
+                                <option value="farmer">Farmer</option>
+                                <option value="dealer">Dealer</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Create a password" required minlength="6">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="terms" required>
+                                <span>I agree to the <a href="#" onclick="showNotification('Terms and conditions page coming soon!')">Terms & Conditions</a></span>
+                            </label>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="newsletter">
+                                <span>Subscribe to our newsletter</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Create Account</button>
+                    </form>
+                    
+                    <div class="signup-link">
+                        <p>Already have an account? <a href="login.html">Login here</a></p>
+                    </div>
+                </div>
+                
+                <div class="login-benefits">
+                    <h3>Why Join AgriNOVA Hub?</h3>
+                    <ul>
+                        <li>✓ Direct access to fresh farm products</li>
+                        <li>✓ Competitive prices for farmers</li>
+                        <li>✓ Secure payment system</li>
+                        <li>✓ Fast delivery options</li>
+                        <li>✓ 24/7 customer support</li>
+                        <li>✓ Community of farmers and buyers</li>
+                    </ul>
+
+                    <div style="margin-top: 30px; padding: 20px; background: #e8f5e8; border-radius: 8px;">
+                        <h4 style="color: #2e7d32; margin-bottom: 10px;">For Farmers & Dealers</h4>
+                        <p style="color: #555; font-size: 14px; margin: 0;">
+                            List your products, reach more customers, and grow your business with our platform.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ff9800;">
+                        <h4 style="color: #856404; margin-bottom: 5px;">Secure & Trusted</h4>
+                        <p style="color: #856404; font-size: 12px; margin: 0;">
+                            Your data is protected with industry-standard security measures.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

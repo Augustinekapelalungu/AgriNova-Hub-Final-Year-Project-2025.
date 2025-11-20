@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                 <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About AgriNOVA Hub</h1>
+            <p>Revolutionizing agriculture by connecting farmers directly with customers</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2>Our Mission</h2>
+                    <p>AgriNOVA Hub is dedicated to eliminating middlemen in agricultural trade, ensuring farmers receive fair prices for their products while customers enjoy fresh, quality produce at reasonable costs.</p>
+                    
+                    <div class="mission-features">
+                        <div class="mission-feature">
+                            <div class="mission-icon">🤝</div>
+                            <div>
+                                <h4>Direct Trade</h4>
+                                <p>Connect farmers directly with buyers, eliminating unnecessary intermediaries</p>
+                            </div>
+                        </div>
+                        <div class="mission-feature">
+                            <div class="mission-icon">👥</div>
+                            <div>
+                                <h4>Community First</h4>
+                                <p>Building a supportive network of farmers, dealers, and customers</p>
+                            </div>
+                        </div>
+                        <div class="mission-feature">
+                            <div class="mission-icon">🌿</div>
+                            <div>
+                                <h4>Quality Products</h4>
+                                <p>Fresh, organic, and sustainably sourced agricultural products</p>
+                            </div>
+                        </div>
+                        <div class="mission-feature">
+                            <div class="mission-icon">💰</div>
+                            <div>
+                                <h4>Fair Pricing</h4>
+                                <p>Transparent pricing that benefits both farmers and customers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-image">
+                    <div style="background: #f5f5f5; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #2e7d32; font-size: 24px; text-align: center; padding: 20px;">
+                        Our Farming Community<br>Working Together for Better Agriculture
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-content">
+                <h2>Our Story</h2>
+                <p>AgriNOVA Hub was born from a simple observation: farmers work hard to produce quality crops, yet often receive unfair compensation due to multiple intermediaries in the supply chain.</p>
+                <p>We created this platform to bridge the gap between farmers and consumers, ensuring fair prices, fresh products, and a sustainable agricultural ecosystem.</p>
+                <p>Today, we serve thousands of farmers and customers across the country, providing a transparent marketplace where quality meets affordability.</p>
+                
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Farmers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Customers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Cities</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

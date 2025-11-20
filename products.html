@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                 <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Products Hero -->
+    <section class="products-hero">
+        <div class="container">
+            <h1>All Products</h1>
+            <p>Browse our complete collection of farm-fresh products</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-filter">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-category="all">All Categories</button>
+                    <button class="filter-btn" data-category="seeds">Seeds</button>
+                    <button class="filter-btn" data-category="tools">Tools</button>
+                    <button class="filter-btn" data-category="vegetables">Vegetables</button>
+                    <button class="filter-btn" data-category="rice">Rice</button>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                <!-- Seeds Category -->
+                <div class="product-card" data-category="seeds">
+                    <div class="product-image" style="background-image: url('images/tomato-seeds.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Seeds</div>
+                        <h3 class="product-name">Organic Tomato Seeds</h3>
+                        <div class="product-price">k120.99</div>
+                        <div class="product-stock">45 in stock</div>
+                        <button class="add-to-cart" data-id="tomato-seeds" data-name="Organic Tomato Seeds" data-price="120.99" data-image="images/tomato-seeds.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="seeds">
+                    <div class="product-image" style="background-image: url('images/Bell Pepper Seeds.jpeg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Seeds</div>
+                        <h3 class="product-name">Bell Pepper Seeds</h3>
+                        <div class="product-price">k100.99</div>
+                        <div class="product-stock">50 in stock</div>
+                        <button class="add-to-cart" data-id="bell-pepper-seeds" data-name="Bell Pepper Seeds" data-price="100.99" data-image="images/tomato-seeds.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Tools Category -->
+                <div class="product-card" data-category="tools">
+                    <div class="product-image" style="background-image: url('images/fertilizer.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Tools</div>
+                        <h3 class="product-name">Garden Fertilizer Pro</h3>
+                        <div class="product-price">k240.99</div>
+                        <div class="product-stock">30 in stock</div>
+                        <button class="add-to-cart" data-id="garden-fertilizer" data-name="Garden Fertilizer Pro" data-price="240.99" data-image="images/fertilizer.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tools">
+                    <div class="product-image" style="background-image: url('images/tools 1.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Tools</div>
+                        <h3 class="product-name">Garden Pruning Shears</h3>
+                        <div class="product-price">k290.99</div>
+                        <div class="product-stock">25 in stock</div>
+                        <button class="add-to-cart" data-id="pruning-shears" data-name="Garden Pruning Shears" data-price="290.99" data-image="images/tools 1.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Vegetables Category -->
+                <div class="product-card" data-category="vegetables">
+                    <div class="product-image" style="background-image: url('images/organic-vegetables.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Vegetables</div>
+                        <h3 class="product-name">Fresh Organic Vegetables</h3>
+                        <div class="product-price">k80.99</div>
+                        <div class="product-stock">120 in stock</div>
+                        <button class="add-to-cart" data-id="organic-vegetables" data-name="Fresh Organic Vegetables" data-price="80.99" data-image="images/organic-vegetables.jpg">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-category="vegetables">
+                    <div class="product-image" style="background-image: url('images/organic-vegetables 2.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Vegetables</div>
+                        <h3 class="product-name">Organic Carrot Bundle</h3>
+                        <div class="product-price">k60.99</div>
+                        <div class="product-stock">80 in stock</div>
+                        <button class="add-to-cart" data-id="carrot-bundle" data-name="Organic Carrot Bundle" data-price="60.99" data-image="images/tomato-seeds.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Rice Category -->
+                <div class="product-card" data-category="rice">
+                    <div class="product-image" style="background-image: url('images/rice-seeds.jpg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Rice</div>
+                        <h3 class="product-name">Premium Rice Seeds</h3>
+                        <div class="product-price">k180.99</div>
+                        <div class="product-stock">60 in stock</div>
+                        <button class="add-to-cart" data-id="rice-seeds" data-name="Premium Rice Seeds" data-price="180.99" data-image="images/rice-seeds.jpg">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Additional Products -->
+                <div class="product-card" data-category="seeds">
+                    <div class="product-image" style="background-image: url('images/CABAGE.jpeg');"></div>
+                    <div class="product-info">
+                        <div class="product-category">Seeds</div>
+                        <h3 class="product-name">Cabbage Seeds</h3>
+                        <div class="product-price">k90.99</div>
+                        <div class="product-stock">35 in stock</div>
+                        <button class="add-to-cart" data-id="cabbage-seeds" data-name="Cabbage Seeds" data-price="90.99" data-image="images/tomato-seeds.jpg">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

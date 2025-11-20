@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                 <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Payment Hero -->
+    <section class="payment-hero">
+        <div class="container">
+            <h1>Secure Payment</h1>
+            <p>Complete your purchase with our secure payment methods</p>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <div class="order-summary">
+                    <h2>Order Summary</h2>
+                    <div id="order-items">
+                        <!-- Order items will be dynamically loaded here -->
+                    </div>
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="order-subtotal">k0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping:</span>
+                            <span id="order-shipping">k0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax:</span>
+                            <span id="order-tax">k0.00</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total:</span>
+                            <span id="order-total">k0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h2>Payment Methods</h2>
+                    
+                    <!-- Credit Card Payment -->
+                    <div class="payment-method-card active" id="creditCardMethod">
+                        <div class="payment-header">
+                            <input type="radio" name="paymentMethod" id="creditCard" checked>
+                            <label for="creditCard">
+                                <span class="payment-icon">💳</span>
+                                Credit/Debit Card
+                            </label>
+                        </div>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiryDate">Expiry Date</label>
+                                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardName">Name on Card</label>
+                                <input type="text" id="cardName" placeholder="John Doe">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Airtel Money Payment -->
+                    <div class="payment-method-card" id="airtelMethod">
+                        <div class="payment-header">
+                            <input type="radio" name="paymentMethod" id="airtelMoney">
+                            <label for="airtelMoney">
+                                <span class="payment-icon">📱</span>
+                                Airtel Money
+                            </label>
+                        </div>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label for="airtelNumber">Airtel Money Number</label>
+                                <input type="tel" id="airtelNumber" placeholder="+260 96 123 4567">
+                            </div>
+                            <div class="payment-instructions">
+                                <p>You will receive a prompt on your phone to complete the payment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MTN Mobile Money Payment -->
+                    <div class="payment-method-card" id="mtnMethod">
+                        <div class="payment-header">
+                            <input type="radio" name="paymentMethod" id="mtnMoney">
+                            <label for="mtnMoney">
+                                <span class="payment-icon">📱</span>
+                                MTN Mobile Money
+                            </label>
+                        </div>
+                        <div class="payment-form">
+                            <div class="form-group">
+                                <label for="mtnNumber">MTN Mobile Money Number</label>
+                                <input type="tel" id="mtnNumber" placeholder="+260 97 123 4567">
+                            </div>
+                            <div class="payment-instructions">
+                                <p>You will receive a prompt on your phone to complete the payment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="submit-btn payment-btn" id="pay-button">Complete Payment</button>
+                    
+                    <div class="security-notice">
+                        <p>🔒 Your payment information is secure and encrypted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Load order items from cart
+        function loadOrderItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItems = document.getElementById('order-items');
+            const payButton = document.getElementById('pay-button');
+            
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p class="empty-order">No items in cart</p>';
+                payButton.disabled = true;
+                payButton.textContent = 'Cart is Empty';
+                updateOrderSummary(0);
+                return;
+            }
+            
+            let orderHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const price = parseFloat(item.price);
+                const itemTotal = price * item.quantity;
+                subtotal += itemTotal;
+                
+                orderHTML += `
+                    <div class="order-item">
+                        <div class="item-image" style="background-image: url('${item.image}')"></div>
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>Quantity: ${item.quantity}</p>
+                            <span class="item-price">k${price.toFixed(2)} each</span>
+                        </div>
+                        <div class="item-total">k${itemTotal.toFixed(2)}</div>
+                    </div>
+                `;
+            });
+            
+            orderItems.innerHTML = orderHTML;
+            updateOrderSummary(subtotal);
+            
+            // Update pay button with total
+            const shipping = subtotal > 0 ? 25 : 0;
+            const tax = subtotal * 0.1;
+            const total = subtotal + shipping + tax;
+            payButton.textContent = `Complete Payment - k${total.toFixed(2)}`;
+        }
+        
+        function updateOrderSummary(subtotal) {
+            const shipping = subtotal > 0 ? 25 : 0;
+            const tax = subtotal * 0.1; // 10% tax
+            const total = subtotal + shipping + tax;
+            
+            document.getElementById('order-subtotal').textContent = `k${subtotal.toFixed(2)}`;
+            document.getElementById('order-shipping').textContent = `k${shipping.toFixed(2)}`;
+            document.getElementById('order-tax').textContent = `k${tax.toFixed(2)}`;
+            document.getElementById('order-total').textContent = `k${total.toFixed(2)}`;
+        }
+        
+        // Payment method selection
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hide all payment forms
+                document.querySelectorAll('.payment-form').forEach(form => {
+                    form.style.display = 'none';
+                });
+                
+                // Show selected payment form
+                const selectedForm = this.closest('.payment-method-card').querySelector('.payment-form');
+                selectedForm.style.display = 'block';
+            });
+        });
+        
+        function processPayment() {
+            const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').id;
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            // Simple validation
+            let isValid = true;
+            
+            if (selectedMethod === 'creditCard') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                const expiryDate = document.getElementById('expiryDate').value;
+                const cvv = document.getElementById('cvv').value;
+                const cardName = document.getElementById('cardName').value;
+                
+                if (!cardNumber || !expiryDate || !cvv || !cardName) {
+                    isValid = false;
+                    showNotification('Please fill in all credit card details!', 'error');
+                }
+            } else if (selectedMethod === 'airtelMoney') {
+                const airtelNumber = document.getElementById('airtelNumber').value;
+                if (!airtelNumber) {
+                    isValid = false;
+                    showNotification('Please enter your Airtel Money number!', 'error');
+                }
+            } else if (selectedMethod === 'mtnMoney') {
+                const mtnNumber = document.getElementById('mtnNumber').value;
+                if (!mtnNumber) {
+                    isValid = false;
+                    showNotification('Please enter your MTN Mobile Money number!', 'error');
+                }
+            }
+            
+            if (isValid) {
+                showNotification('Processing your payment...', 'success');
+                
+                // Simulate payment processing
+                setTimeout(() => {
+                    showNotification('Payment successful! Your order has been placed. ✅', 'success');
+                    
+                    // Clear cart and redirect to home
+                    localStorage.removeItem('cart');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }, 3000);
+            }
+        }
+        
+        // Initialize with credit card form visible
+        document.querySelector('#creditCardMethod .payment-form').style.display = 'block';
+        
+        // Load order items when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrderItems();
+            updateCartCount();
+            
+            // Add event listener to pay button
+            document.getElementById('pay-button').addEventListener('click', processPayment);
+        });
+    </script>
+</body>
+</html>

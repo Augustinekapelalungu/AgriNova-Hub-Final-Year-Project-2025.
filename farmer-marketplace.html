@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Marketplace - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for marketplace */
+        .marketplace-hero {
+            background: linear-gradient(rgba(46, 125, 50, 0.9), rgba(46, 125, 50, 0.8)), url('images/slider-1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .marketplace-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(46, 125, 50, 0.8);
+        }
+
+        .marketplace-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .marketplace-hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .marketplace-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .marketplace-section {
+            padding: 80px 0;
+        }
+
+        .upload-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .upload-section h2 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .image-upload-container {
+            border: 2px dashed #2e7d32;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8fff8;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .image-upload-container:hover {
+            background: #f0fff0;
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #2e7d32;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .my-products-section h2 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .product-details {
+            margin: 15px 0;
+        }
+
+        .product-details p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .product-details strong {
+            color: #333;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #1976D2;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .demo-login-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Products grid for marketplace */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 180px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .product-category {
+            color: #2e7d32;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        /* Buy Section Styles */
+        .buy-section {
+            margin-top: 50px;
+            padding: 40px 0;
+            border-top: 2px solid #e8f5e8;
+        }
+
+        .buy-section h2 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .buy-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .buy-btn:hover {
+            background: #45a049;
+        }
+
+        .buy-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .customer-view .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .customer-view .btn-edit,
+        .customer-view .btn-delete {
+            display: none;
+        }
+
+        .out-of-stock {
+            color: #f44336;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-placeholder">AgriNOVA Hub</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="farmer-marketplace.html" class="active">FarmHub</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="search-login">
+                <div class="search-box">
+                    <input type="text" placeholder="Search products...">
+                </div>
+                <div class="header-actions">
+                    <a href="cart.html" class="cart-icon">
+                        🛒
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+                    
+                    <!-- User Info (shown when logged in) -->
+                    <div id="user-info" style="display: none;">
+                        <span id="user-greeting" class="welcome-user"></span>
+                        <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                    </div>
+                    
+                    <!-- Login/Signup (shown when NOT logged in) -->
+                    <div id="auth-buttons">
+                        <a href="signup.html" class="signup-btn">Sign Up</a>
+                        <a href="login.html" class="login-btn">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Farmer Marketplace Hero -->
+    <section class="marketplace-hero">
+        <div class="container">
+            <h1>Farmer Marketplace</h1>
+            <p>Upload your products and connect directly with customers</p>
+        </div>
+    </section>
+
+    <!-- Marketplace Content -->
+    <section class="marketplace-section">
+        <div class="container">
+            <!-- Demo Login Section (shown when not logged in) -->
+            <div id="demoLoginSection" class="demo-login-section" style="display: none;">
+                <h3>Quick Farmer Login</h3>
+                <p>Use this button to quickly login as a farmer for testing:</p>
+                <button id="demoLoginBtn" class="btn" style="background: #ff9800; margin-top: 10px;">
+                    👨‍🌾 Demo Farmer Login
+                </button>
+                <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                    <strong>Real Login:</strong> You can also <a href="signup.html">sign up</a> as a farmer or <a href="login.html">login</a> with an existing farmer account
+                </p>
+            </div>
+
+            <!-- Upload Product Form -->
+            <div class="upload-section" id="uploadSection" style="display: none;">
+                <h2>Upload Your Product</h2>
+                <form id="productUploadForm" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" name="productName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" name="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="1">Seeds</option>
+                                <option value="2">Tools</option>
+                                <option value="3">Vegetables</option>
+                                <option value="4">Rice</option>
+                                <option value="5">Fertilizers</option>
+                                <option value="6">Fruits</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Price (Kwacha) *</label>
+                            <input type="number" id="productPrice" name="productPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productQuantity">Stock Quantity *</label>
+                            <input type="number" id="productQuantity" name="productQuantity" min="1" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" name="productDescription" placeholder="Describe your product..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Product Image</label>
+                        <div class="image-upload-container">
+                            <div class="image-upload" id="imageUploadArea">
+                                <div class="upload-icon">📷</div>
+                                <p>Click to upload product image</p>
+                                <small>JPEG, PNG (Max 5MB)</small>
+                                <input type="file" id="productImage" name="productImage" accept="image/*">
+                            </div>
+                            <img id="imagePreview" class="image-preview" alt="Image preview">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Upload Product</button>
+                </form>
+            </div>
+            
+            <!-- My Products Section -->
+            <div class="my-products-section" id="myProductsSection" style="display: none;">
+                <h2>My Products</h2>
+                <div id="productsCount" style="text-align: center; margin-bottom: 20px; color: #666;"></div>
+                <div class="products-grid" id="farmerProductsGrid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Customer Buy Section -->
+            <div class="buy-section" id="buySection">
+                <h2>Available Products from Farmers</h2>
+                <div id="customerProductsCount" style="text-align: center; margin-bottom: 20px; color: #666;"></div>
+                <div class="products-grid" id="customerProductsGrid">
+                    <!-- Customer products will be loaded here -->
+
+<!-- Add this after the buy section in your HTML -->
+<div class="database-viewer-section" id="databaseViewerSection" style="display: none;">
+    <div class="content-section">
+        <div class="section-header">
+            <h2>Database Orders Viewer</h2>
+            <button class="btn" onclick="loadDatabaseOrders()">🔄 Refresh Orders</button>
+        </div>
+        
+        <div class="database-info">
+            <h4>Orders in Database</h4>
+            <div id="databaseOrdersList">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+        
+        <div class="database-info">
+            <h4>Order Items in Database</h4>
+            <div id="databaseOrderItemsList">
+                <!-- Order items will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+       
+   // Cart functionality - Fixed version
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cartCount = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+
+// Update cart count display
+function updateCartCount() {
+    const cartCountElement = document.getElementById('cart-count');
+    if (cartCountElement) {
+        cartCount = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+        cartCountElement.textContent = cartCount;
+        cartCountElement.style.display = cartCount > 0 ? 'flex' : 'none';
+    }
+}
+
+// Fixed add to cart function
+function addToCart(productId, productName, productPrice, productImage, stockQuantity) {
+    console.log('🛒 Adding to cart:', { productId, productName, productPrice, stockQuantity });
+    
+    const existingItem = cart.find(item => item.id == productId);
+    
+    if (existingItem) {
+        if (existingItem.quantity >= stockQuantity) {
+            showNotification('Cannot add more - limited stock available', true);
+            return false;
+        }
+        existingItem.quantity += 1;
+        console.log('📦 Updated existing item quantity:', existingItem.quantity);
+    } else {
+        if (stockQuantity < 1) {
+            showNotification('Product is out of stock', true);
+            return false;
+        }
+        cart.push({
+            id: productId.toString(),
+            name: productName,
+            price: parseFloat(productPrice),
+            image: productImage,
+            quantity: 1,
+            stock_quantity: parseInt(stockQuantity)
+        });
+        console.log('🆕 Added new item to cart');
+    }
+    
+    cartCount = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartSummary();
+    
+    console.log('📊 Cart after update:', cart);
+    return true;
+}
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Farmer Marketplace initialized');
+    console.log('📦 Initial cart:', cart);
+    initializeMarketplace();
+    updateCartCount(); // Initialize cart count
+    updateCartSummary(); // Initialize cart summary
+});
+
+function initializeMarketplace() {
+    // Check login status and update UI
+    checkLoginStatus();
+    
+    // Setup event listeners
+    setupEventListeners();
+    
+    // Update header user status
+    updateHeaderUserStatus();
+    
+    // Load products for customers (always show this section)
+    loadCustomerProducts();
+    
+    // Add order button
+    addOrderButton();
+}
+
+function checkLoginStatus() {
+    console.log('🔍 Checking login status...');
+    
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
+    const userName = localStorage.getItem('userName');
+    const userType = localStorage.getItem('userType');
+    const userId = localStorage.getItem('userId');
+    
+    console.log('LocalStorage:', { userLoggedIn, userName, userType, userId });
+    
+    if (userLoggedIn === 'true' && userName && userType) {
+        // User is logged in
+        if (userType === 'farmer') {
+            // Show farmer content
+            document.getElementById('uploadSection').style.display = 'block';
+            document.getElementById('myProductsSection').style.display = 'block';
+            document.getElementById('demoLoginSection').style.display = 'none';
+            
+            // Load farmer products
+            loadFarmerProducts();
+            
+            console.log('✅ Farmer access granted');
+        } else {
+            // User is not a farmer (customer)
+            document.getElementById('uploadSection').style.display = 'none';
+            document.getElementById('myProductsSection').style.display = 'none';
+            document.getElementById('demoLoginSection').style.display = 'none';
+            console.log('✅ Customer access granted');
+        }
+    } else {
+        // User is not logged in
+        console.log('❌ User not logged in');
+        document.getElementById('demoLoginSection').style.display = 'block';
+        document.getElementById('uploadSection').style.display = 'none';
+        document.getElementById('myProductsSection').style.display = 'none';
+    }
+}
+
+function setupEventListeners() {
+    // Demo login button
+    const demoLoginBtn = document.getElementById('demoLoginBtn');
+    if (demoLoginBtn) {
+        demoLoginBtn.addEventListener('click', function() {
+            demoFarmerLogin();
+        });
+    }
+
+    // Image upload
+    const imageUploadArea = document.getElementById('imageUploadArea');
+    const productImage = document.getElementById('productImage');
+    const imagePreview = document.getElementById('imagePreview');
+
+    if (imageUploadArea && productImage) {
+        imageUploadArea.addEventListener('click', function() {
+            productImage.click();
+        });
+
+        productImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('Image size must be less than 5MB', true);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    imageUploadArea.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    // Form submission
+    const productUploadForm = document.getElementById('productUploadForm');
+    if (productUploadForm) {
+        productUploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleProductUpload();
+        });
+    }
+}
+
+function updateHeaderUserStatus() {
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
+    const userName = localStorage.getItem('userName');
+    const userType = localStorage.getItem('userType');
+    
+    const userInfo = document.getElementById('user-info');
+    const authButtons = document.getElementById('auth-buttons');
+    const userGreeting = document.getElementById('user-greeting');
+    
+    if (userLoggedIn === 'true' && userName) {
+        if (userInfo) userInfo.style.display = 'flex';
+        if (authButtons) authButtons.style.display = 'none';
+        if (userGreeting) {
+            userGreeting.textContent = `Welcome, ${userName}`;
+            if (userType) {
+                userGreeting.textContent += ` (${userType})`;
+            }
+        }
+    } else {
+        if (userInfo) userInfo.style.display = 'none';
+        if (authButtons) authButtons.style.display = 'flex';
+    }
+}
+
+function demoFarmerLogin() {
+    console.log('👨‍🌾 Demo farmer login...');
+    
+    // Set demo farmer data
+    localStorage.setItem('userLoggedIn', 'true');
+    localStorage.setItem('userId', '1');
+    localStorage.setItem('userName', 'John Farmer');
+    localStorage.setItem('userEmail', 'farmer@test.com');
+    localStorage.setItem('userType', 'farmer');
+    
+    showNotification('Demo farmer login successful! Welcome!');
+    
+    // Reload the page to show farmer content
+    setTimeout(() => {
+        location.reload();
+    }, 1000);
+}
+
+function handleProductUpload() {
+    const userId = localStorage.getItem('userId');
+    const userType = localStorage.getItem('userType');
+    
+    if (!userId || userType !== 'farmer') {
+        showNotification('Please login as a farmer to upload products', true);
+        return;
+    }
+    
+    const productName = document.getElementById('productName').value;
+    const productCategory = document.getElementById('productCategory').value;
+    const productPrice = document.getElementById('productPrice').value;
+    const productQuantity = document.getElementById('productQuantity').value;
+    const productDescription = document.getElementById('productDescription').value;
+    
+    // Validate required fields
+    if (!productName || !productCategory || !productPrice || !productQuantity) {
+        showNotification('Please fill in all required fields', true);
+        return;
+    }
+    
+    // Create FormData for file upload
+    const formData = new FormData();
+    formData.append('farmer_id', userId);
+    formData.append('name', productName);
+    formData.append('category_id', productCategory);
+    formData.append('price', productPrice);
+    formData.append('stock_quantity', productQuantity);
+    formData.append('description', productDescription);
+    
+    // Add image file if selected
+    const productImage = document.getElementById('productImage');
+    if (productImage.files[0]) {
+        formData.append('image', productImage.files[0]);
+    }
+    
+    showNotification('Uploading product to database...');
+    
+    // Try to upload to database first
+    fetch('api/upload-product.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('📡 Upload Response status:', response.status);
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('✅ Upload response:', data);
+        if (data.success) {
+            showNotification('Product uploaded to database successfully!');
+            document.getElementById('productUploadForm').reset();
+            resetImageUpload();
+            loadFarmerProducts(); // Reload from database
+            loadCustomerProducts(); // Also reload customer view
+        } else {
+            throw new Error(data.error || 'Upload failed');
+        }
+    })
+    .catch(error => {
+        console.error('❌ Database upload failed:', error);
+        // Fallback to localStorage
+        saveProductToLocalStorage(userId, productName, productCategory, productPrice, productQuantity, productDescription);
+        showNotification('Product saved locally (database unavailable)', true);
+    });
+}
+
+function saveProductToLocalStorage(userId, name, category, price, quantity, description) {
+    // Handle image for localStorage
+    let imageUrl = 'images/organic-vegetables.jpg';
+    const productImage = document.getElementById('productImage');
+    if (productImage.files[0]) {
+        const file = productImage.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imageUrl = e.target.result;
+            saveProductLocal(userId, name, category, price, quantity, description, imageUrl);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        saveProductLocal(userId, name, category, price, quantity, description, imageUrl);
+    }
+}
+
+function saveProductLocal(userId, name, category, price, quantity, description, imageUrl) {
+    // Create unique product ID
+    const productId = Date.now();
+    
+    // Create product object
+    const newProduct = {
+        id: productId,
+        name: name,
+        category_id: category,
+        price: parseFloat(price),
+        stock_quantity: parseInt(quantity),
+        description: description,
+        image_url: imageUrl,
+        is_active: true,
+        farmer_id: userId,
+        created_at: new Date().toISOString()
+    };
+
+    console.log('💾 Saving product to localStorage:', newProduct);
+
+    // Save to localStorage
+    const localProducts = JSON.parse(localStorage.getItem(`farmerProducts_${userId}`)) || [];
+    localProducts.unshift(newProduct);
+    localStorage.setItem(`farmerProducts_${userId}`, JSON.stringify(localProducts));
+    
+    // Reset form
+    document.getElementById('productUploadForm').reset();
+    resetImageUpload();
+    
+    // Reload products
+    loadFarmerProducts();
+    loadCustomerProducts();
+    
+    showNotification('Product saved locally!');
+}
+
+function resetImageUpload() {
+    const imagePreview = document.getElementById('imagePreview');
+    const imageUploadArea = document.getElementById('imageUploadArea');
+    const productImage = document.getElementById('productImage');
+    
+    if (imagePreview) imagePreview.style.display = 'none';
+    if (imageUploadArea) imageUploadArea.style.display = 'block';
+    if (productImage) productImage.value = '';
+}
+
+function loadFarmerProducts() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+    
+    console.log('🔄 Trying to load from database...');
+    
+    // Try to load from database first
+    fetch(`api/get-farmer-products.php?farmer_id=${userId}`)
+        .then(response => {
+            console.log('📡 API Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('✅ Database response:', data);
+            if (data.success && data.products) {
+                console.log('📦 Loaded products from database:', data.products);
+                displayFarmerProducts(data.products);
+            } else {
+                throw new Error(data.error || 'No products found');
+            }
+        })
+        .catch(error => {
+            console.error('❌ Database load failed:', error);
+            // Fallback to localStorage
+            const localProducts = JSON.parse(localStorage.getItem(`farmerProducts_${userId}`)) || [];
+            console.log('📦 Loaded products from localStorage:', localProducts);
+            displayFarmerProducts(localProducts);
+            showNotification('Using local data (database unavailable)', true);
+        });
+}
+
+function displayFarmerProducts(products) {
+    const farmerProductsGrid = document.getElementById('farmerProductsGrid');
+    const productsCount = document.getElementById('productsCount');
+    
+    if (!farmerProductsGrid) return;
+    
+    farmerProductsGrid.innerHTML = '';
+    
+    // Update products count
+    if (productsCount) {
+        productsCount.textContent = `You have ${products.length} product${products.length !== 1 ? 's' : ''} listed`;
+    }
+    
+    if (products.length === 0) {
+        farmerProductsGrid.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">🌱</div>
+                <h3>No Products Listed</h3>
+                <p>You haven't uploaded any products yet. Start by uploading your first product.</p>
+            </div>
+        `;
+        return;
+    }
+
+    products.forEach(product => {
+        console.log('🎨 Rendering farmer product:', product);
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <div class="product-image" style="background-image: url('${product.image_url || 'images/organic-vegetables.jpg'}')"></div>
+            <div class="product-info">
+                <div class="product-category">${getCategoryName(product.category_id)}</div>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-description">${product.description || 'No description available'}</p>
+                
+                <div class="product-details">
+                    <p><strong>Price:</strong> K${product.price}</p>
+                    <p><strong>Stock:</strong> ${product.stock_quantity} units</p>
+                    <p><strong>Status:</strong> ${product.is_active !== false ? 'Active' : 'Inactive'}</p>
+                </div>
+                
+                <div class="product-actions">
+                    <button class="btn-edit" onclick="editProduct(${product.id})">✏️ Edit</button>
+                    <button class="btn-delete" onclick="deleteProduct(${product.id})">🗑️ Delete</button>
+                </div>
+            </div>
+        `;
+        farmerProductsGrid.appendChild(productCard);
+    });
+}
+
+// Load products for customers to buy
+function loadCustomerProducts() {
+    console.log('🛒 Loading products for customers...');
+    
+    // Try to load from database first
+    fetch('api/get-all-products.php')
+        .then(response => {
+            console.log('📡 Customer API Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('✅ Customer Database response:', data);
+            if (data.success && data.products) {
+                console.log('🛒 Loaded products from database:', data.products);
+                displayCustomerProducts(data.products);
+            } else {
+                throw new Error(data.error || 'No products found');
+            }
+        })
+        .catch(error => {
+            console.error('❌ Customer Database load failed:', error);
+            // Fallback to localStorage
+            let allProducts = [];
+            const keys = Object.keys(localStorage);
+            
+            keys.forEach(key => {
+                if (key.startsWith('farmerProducts_')) {
+                    const farmerProducts = JSON.parse(localStorage.getItem(key)) || [];
+                    allProducts = allProducts.concat(farmerProducts);
+                }
+            });
+            
+            console.log('🛒 Loaded products from localStorage:', allProducts);
+            displayCustomerProducts(allProducts);
+            showNotification('Using local data (database unavailable)', true);
+        });
+}
+
+function displayCustomerProducts(products) {
+    const customerProductsGrid = document.getElementById('customerProductsGrid');
+    const customerProductsCount = document.getElementById('customerProductsCount');
+    
+    if (!customerProductsGrid) return;
+    
+    customerProductsGrid.innerHTML = '';
+    
+    // Filter only active products
+    const activeProducts = products.filter(product => product.is_active !== false);
+    
+    // Update products count
+    if (customerProductsCount) {
+        customerProductsCount.textContent = `${activeProducts.length} product${activeProducts.length !== 1 ? 's' : ''} available from farmers`;
+    }
+    
+    if (activeProducts.length === 0) {
+        customerProductsGrid.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">🌱</div>
+                <h3>No Products Available</h3>
+                <p>Farmers haven't uploaded any products yet. Check back later!</p>
+            </div>
+        `;
+        return;
+    }
+
+    activeProducts.forEach(product => {
+        console.log('🛒 Rendering customer product:', product);
+        const isOutOfStock = product.stock_quantity <= 0;
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card customer-view';
+        productCard.innerHTML = `
+            <div class="product-image" style="background-image: url('${product.image_url || 'images/organic-vegetables.jpg'}')"></div>
+            <div class="product-info">
+                <div class="product-category">${getCategoryName(product.category_id)}</div>
+                <h3 class="product-name">${product.name}</h3>
+                <p class="product-description">${product.description || 'No description available'}</p>
+                
+                <div class="product-details">
+                    <p><strong>Price:</strong> K${product.price}</p>
+                    <p><strong>Stock:</strong> ${product.stock_quantity} units</p>
+                    ${isOutOfStock ? '<p class="out-of-stock">Out of Stock</p>' : ''}
+                </div>
+                
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="buyProduct(${product.product_id || product.id}, '${product.name}', ${product.price}, '${product.image_url || 'images/organic-vegetables.jpg'}', ${product.stock_quantity})" ${isOutOfStock ? 'disabled' : ''}>
+                        ${isOutOfStock ? 'Out of Stock' : '🛒 Add to Cart'}
+                    </button>
+                </div>
+            </div>
+        `;
+        customerProductsGrid.appendChild(productCard);
+    });
+}
+
+// Fixed buyProduct function - simplified
+function buyProduct(productId, productName, productPrice, productImage, stockQuantity) {
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
+    
+    if (userLoggedIn !== 'true') {
+        showNotification('Please login to purchase products', true);
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 2000);
+        return;
+    }
+
+    console.log('🛒 Buying product:', { productId, productName, productPrice, stockQuantity });
+
+    // Add to cart directly
+    const success = addToCart(
+        productId,
+        productName,
+        productPrice,
+        productImage,
+        stockQuantity
+    );
+    
+    if (success) {
+        showNotification(`"${productName}" added to cart! 🛒`);
+    } else {
+        showNotification('Failed to add product to cart', true);
+    }
+}
+
+function getCategoryName(categoryId) {
+    const categories = {
+        1: 'Seeds',
+        2: 'Tools', 
+        3: 'Vegetables',
+        4: 'Rice',
+        5: 'Fertilizers',
+        6: 'Fruits'
+    };
+    return categories[categoryId] || 'Other';
+}
+
+function deleteProduct(productId) {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+    
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+    
+    let localProducts = JSON.parse(localStorage.getItem(`farmerProducts_${userId}`)) || [];
+    const initialLength = localProducts.length;
+    localProducts = localProducts.filter(product => product.id !== productId);
+    
+    if (localProducts.length < initialLength) {
+        localStorage.setItem(`farmerProducts_${userId}`, JSON.stringify(localProducts));
+        loadFarmerProducts();
+        loadCustomerProducts(); // Also update customer view
+        showNotification('Product deleted successfully!');
+    } else {
+        showNotification('Product not found', true);
+    }
+}
+
+function editProduct(productId) {
+    showNotification('Edit feature coming soon!');
+}
+
+// ORDER FUNCTIONALITY - FIXED VERSION
+function createOrder() {
+    const userLoggedIn = localStorage.getItem('userLoggedIn');
+    const userId = localStorage.getItem('userId');
+    
+    if (userLoggedIn !== 'true' || !userId) {
+        showNotification('Please login to create orders', true);
+        return;
+    }
+
+    console.log('📦 Current cart:', cart);
+    
+    if (cart.length === 0) {
+        showNotification('Your cart is empty. Add some products first!', true);
+        return;
+    }
+
+    // Calculate total amount
+    const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    
+    // Create order data
+    const orderData = {
+        user_id: userId,
+        total_amount: totalAmount,
+        payment_method: 'Cash on Delivery',
+        status: 'pending',
+        items: cart
+    };
+
+    console.log('📋 Creating order:', orderData);
+    showNotification('Creating order...');
+
+    // Send order to database
+    fetch('api/create-order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('✅ Order response:', data);
+        if (data.success) {
+            showNotification('Order created successfully! Order ID: ' + data.order_id);
+            
+            // Clear cart
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateCartSummary();
+            
+            // Update product stock quantities
+            updateProductStockAfterOrder(orderData.items);
+            
+            // Reload products to show updated stock
+            loadCustomerProducts();
+            
+        } else {
+            throw new Error(data.error || 'Order creation failed');
+        }
+    })
+    .catch(error => {
+        console.error('❌ Order creation failed:', error);
+        // Fallback to localStorage for orders
+        createOrderLocalStorage(userId, totalAmount, cart);
+        showNotification('Order saved locally (database unavailable)', true);
+    });
+}
+
+function createOrderLocalStorage(userId, totalAmount, cartItems) {
+    const orderId = Date.now();
+    
+    const order = {
+        order_id: orderId,
+        user_id: userId,
+        total_amount: totalAmount,
+        payment_method: 'Cash on Delivery',
+        status: 'pending',
+        created_at: new Date().toISOString(),
+        items: cartItems
+    };
+
+    console.log('💾 Saving order to localStorage:', order);
+
+    // Save order to localStorage
+    const orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+    orders.unshift(order);
+    localStorage.setItem('customerOrders', JSON.stringify(orders));
+    
+    // Clear cart
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    updateCartSummary();
+    
+    // Update product stock in localStorage
+    cartItems.forEach(item => {
+        updateProductStock(item.id, item.stock_quantity - item.quantity);
+    });
+    
+    showNotification('Order created locally! Order ID: ' + orderId);
+}
+
+function updateProductStockAfterOrder(items) {
+    items.forEach(item => {
+        // Update stock in database
+        fetch('api/update-product-stock.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                product_id: item.id,
+                stock_quantity: item.stock_quantity - item.quantity
+            })
+        })
+        .catch(error => {
+            console.error('Failed to update product stock:', error);
+            // Fallback to localStorage update
+            updateProductStock(item.id, item.stock_quantity - item.quantity);
+        });
+    });
+}
+
+function updateProductStock(productId, newStock) {
+    // Update stock in localStorage (in a real app, this would update the database)
+    const keys = Object.keys(localStorage);
+    
+    for (let key of keys) {
+        if (key.startsWith('farmerProducts_')) {
+            const farmerProducts = JSON.parse(localStorage.getItem(key)) || [];
+            const productIndex = farmerProducts.findIndex(p => p.id == productId);
+            if (productIndex !== -1) {
+                farmerProducts[productIndex].stock_quantity = newStock;
+                localStorage.setItem(key, JSON.stringify(farmerProducts));
+                
+                // Reload both views
+                loadFarmerProducts();
+                loadCustomerProducts();
+                break;
+            }
+        }
+    }
+}
+
+function addOrderButton() {
+    // Check if we're on a page where order button should be shown
+    const buySection = document.getElementById('buySection');
+    if (buySection && !document.getElementById('cartSummary')) {
+        // Add cart summary
+        const cartSummary = document.createElement('div');
+        cartSummary.id = 'cartSummary';
+        cartSummary.className = 'cart-summary';
+        cartSummary.style.marginTop = '20px';
+        cartSummary.style.padding = '15px';
+        cartSummary.style.background = '#f8f9fa';
+        cartSummary.style.borderRadius = '8px';
+        cartSummary.style.textAlign = 'center';
+        
+        // Add order button
+        const orderButton = document.createElement('button');
+        orderButton.id = 'orderButton';
+        orderButton.className = 'order-btn';
+        orderButton.innerHTML = '🛒 Checkout & Create Order';
+        orderButton.onclick = createOrder;
+        
+        buySection.appendChild(cartSummary);
+        buySection.appendChild(orderButton);
+        
+        updateCartSummary();
+    }
+}
+
+function updateCartSummary() {
+    const cartSummary = document.getElementById('cartSummary');
+    const orderButton = document.getElementById('orderButton');
+    
+    if (!cartSummary) return;
+    
+    console.log('📊 Updating cart summary, cart:', cart);
+    
+    if (cart.length === 0) {
+        cartSummary.innerHTML = `
+            <h4>Cart Summary</h4>
+            <p>Your cart is empty</p>
+            <p><small>Add products to your cart to create an order</small></p>
+        `;
+        if (orderButton) {
+            orderButton.disabled = true;
+            orderButton.style.background = '#cccccc';
+        }
+        return;
+    }
+    
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    const totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    
+    cartSummary.innerHTML = `
+        <h4>Cart Summary</h4>
+        <p><strong>Items in Cart:</strong> ${totalItems}</p>
+        <p><strong>Total Amount:</strong> K${totalAmount.toFixed(2)}</p>
+        <div style="margin-top: 10px; font-size: 14px; color: #666;">
+            <p><strong>Items:</strong></p>
+            ${cart.map(item => `
+                <p style="margin: 5px 0;">• ${item.name} (K${item.price} × ${item.quantity})</p>
+            `).join('')}
+        </div>
+        <p style="margin-top: 10px;"><small>Click "Checkout" to create your order</small></p>
+    `;
+    
+    if (orderButton) {
+        orderButton.disabled = false;
+        orderButton.style.background = '#ff9800';
+    }
+}
+
+function showNotification(message, isError = false) {
+    const notification = document.getElementById('notification');
+    if (!notification) return;
+    
+    notification.textContent = message;
+    notification.className = 'notification';
+    if (isError) {
+        notification.classList.add('error');
+    }
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+// Make functions available globally
+window.logout = function() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('userLoggedIn');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userType');
+        showNotification('Logged out successfully.');
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    }
+};
+
+window.deleteProduct = deleteProduct;
+window.editProduct = editProduct;
+window.buyProduct = buyProduct;
+window.addToCart = addToCart;
+window.createOrder = createOrder;
+
+// Database viewer functions
+function showDatabaseViewer() {
+    const databaseViewerSection = document.getElementById('databaseViewerSection');
+    if (databaseViewerSection) {
+        databaseViewerSection.style.display = 'block';
+        loadDatabaseOrders();
+    }
+}
+
+function loadDatabaseOrders() {
+    console.log('📊 Loading database orders...');
+    
+    const ordersContainer = document.getElementById('databaseOrdersList');
+    const itemsContainer = document.getElementById('databaseOrderItemsList');
+    
+    if (ordersContainer) {
+        ordersContainer.innerHTML = '<p>Loading orders...</p>';
+    }
+    if (itemsContainer) {
+        itemsContainer.innerHTML = '<p>Loading order items...</p>';
+    }
+    
+    // Load orders with better error handling
+    fetch('api/get-orders.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text(); // Get as text first
+        })
+        .then(text => {
+            console.log('📡 Raw orders response:', text.substring(0, 200));
+            
+            try {
+                const data = JSON.parse(text);
+                console.log('✅ Parsed orders data:', data);
+                
+                if (data.success) {
+                    displayDatabaseOrders(data.orders || []);
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
+            } catch (e) {
+                console.error('❌ Failed to parse orders JSON:', e);
+                if (ordersContainer) {
+                    ordersContainer.innerHTML = `
+                        <div style="color: red;">
+                            <p><strong>API Error:</strong> Could not parse response as JSON</p>
+                            <p><strong>Raw response:</strong> ${text.substring(0, 200)}...</p>
+                            <p><strong>Error:</strong> ${e.message}</p>
+                        </div>
+                    `;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('❌ Failed to load orders:', error);
+            if (ordersContainer) {
+                ordersContainer.innerHTML = `
+                    <div style="color: red;">
+                        <p><strong>Network Error:</strong> ${error.message}</p>
+                        <p>Check browser console for details</p>
+                    </div>
+                `;
+            }
+        });
+    
+    // Load order items with better error handling
+    fetch('api/get-order-items.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text(); // Get as text first
+        })
+        .then(text => {
+            console.log('📡 Raw order items response:', text.substring(0, 200));
+            
+            try {
+                const data = JSON.parse(text);
+                console.log('✅ Parsed order items data:', data);
+                
+                if (data.success) {
+                    displayDatabaseOrderItems(data.order_items || []);
+                } else {
+                    throw new Error(data.error || 'Unknown error');
+                }
+            } catch (e) {
+                console.error('❌ Failed to parse order items JSON:', e);
+                if (itemsContainer) {
+                    itemsContainer.innerHTML = `
+                        <div style="color: red;">
+                            <p><strong>API Error:</strong> Could not parse response as JSON</p>
+                            <p><strong>Raw response:</strong> ${text.substring(0, 200)}...</p>
+                            <p><strong>Error:</strong> ${e.message}</p>
+                        </div>
+                    `;
+                }
+            }
+        })
+        .catch(error => {
+            console.error('❌ Failed to load order items:', error);
+            if (itemsContainer) {
+                itemsContainer.innerHTML = `
+                    <div style="color: red;">
+                        <p><strong>Network Error:</strong> ${error.message}</p>
+                        <p>Check browser console for details</p>
+                    </div>
+                `;
+            }
+        });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-placeholder">AgriNOVA Hub</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                   <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="search-login">
+                <div class="search-box">
+                    <input type="text" placeholder="Search products...">
+                </div>
+                <div class="header-actions">
+                    <a href="cart.html" class="cart-icon">
+                        🛒
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a>
+                    
+                    <!-- User Info (shown when logged in) -->
+                    <div id="user-info" style="display: none;">
+                        <span id="user-greeting" class="welcome-user"></span>
+                        <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                    </div>
+                    
+                    <!-- Login/Signup (shown when NOT logged in) -->
+                    <div id="auth-buttons">
+                        <a href="signup.html" class="signup-btn">Sign Up</a>
+                        <a href="login.html" class="login-btn">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Order Confirmation Hero -->
+    <section class="login-hero">
+        <div class="container">
+            <h1>Order Confirmed! 🎉</h1>
+            <p>Thank you for your purchase</p>
+        </div>
+    </section>
+
+    <!-- Order Confirmation Section -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-form" style="text-align: center;">
+                    <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
+                    <h2>Order Successful!</h2>
+                    <p>Your order has been placed successfully.</p>
+                    <p><strong>Order ID:</strong> <span id="order-id">#00001</span></p>
+                    <p>You will receive a confirmation email shortly.</p>
+                    
+                    <div style="margin: 30px 0; padding: 20px; background: #e8f5e8; border-radius: 8px;">
+                        <h3>What's Next?</h3>
+                        <p>We'll process your order and notify you when it ships.</p>
+                        <p>Estimated delivery: 3-5 business days</p>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="window.location.href='index.html'">Continue Shopping</button>
+                        <button class="btn btn-secondary" onclick="window.location.href='contact.html'">Contact Support</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <!-- Your existing footer -->
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

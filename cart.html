@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Cart Hero -->
+    <section class="cart-hero">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+            <p>Review your items and proceed to checkout</p>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-container">
+                <div class="cart-items">
+                    <h2>Your Cart Items <span id="item-count" class="item-count"></span></h2>
+                    <div id="cart-items-list">
+                        <!-- Cart items will be dynamically loaded here -->
+                    </div>
+                    <div id="empty-cart" class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some products to your cart to see them here</p>
+                        <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">k0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">k0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span id="tax">k0.00</span>
+                        </div>
+                        <div class="summary-row grand-total">
+                            <span>Total:</span>
+                            <span id="total">k0.00</span>
+                        </div>
+                    </div>
+                    <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                    <a href="products.html" class="continue-shopping">Continue Shopping</a>
+                </div>
+            </div>
+            
+            <!-- Reset Cart Button -->
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="clearCart()" class="btn" style="background: #ff4444; color: white;">Reset Cart (Fix Issues)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                         <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Cart page functionality
+        function clearCart() {
+            localStorage.setItem('cart', JSON.stringify([]));
+            loadCartItems();
+            updateCartCount();
+            showNotification('Cart cleared');
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = document.getElementById('cart-count');
+            const totalItems = cart.reduce((total, item) => total + (parseInt(item.quantity) || 1), 0);
+            cartCount.textContent = totalItems;
+        }
+
+        function loadCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsList = document.getElementById('cart-items-list');
+            const emptyCart = document.getElementById('empty-cart');
+            const itemCount = document.getElementById('item-count');
+            
+            console.log('Cart data:', cart); // Debug: check what's in cart
+            
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = '';
+                emptyCart.style.display = 'block';
+                itemCount.textContent = '';
+                updateCartSummary(0);
+                updateCartCount(); // Make sure cart count is updated
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            itemCount.textContent = `(${cart.length} items)`;
+            
+            let cartHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                // Validate item data and provide defaults for missing properties
+                const price = parseFloat(item.price) || 0;
+                const name = item.name || 'Unknown Product';
+                const quantity = parseInt(item.quantity) || 1;
+                const itemTotal = price * quantity;
+                subtotal += itemTotal;
+                
+                cartHTML += `
+                    <div class="cart-item" data-id="${item.id || ''}">
+                        <div class="item-image" style="background-image: url('${item.image || ''}')"></div>
+                        <div class="item-details">
+                            <h4>${name}</h4>
+                            <div class="item-price">k${price.toFixed(2)} each</div>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="decreaseQuantity('${item.id || ''}')">-</button>
+                            <span class="quantity">${quantity}</span>
+                            <button class="quantity-btn" onclick="increaseQuantity('${item.id || ''}')">+</button>
+                        </div>
+                        <div class="item-total">k${itemTotal.toFixed(2)}</div>
+                        <button class="remove-btn" onclick="removeItem('${item.id || ''}')" title="Remove item">×</button>
+                    </div>
+                `;
+            });
+            
+            cartItemsList.innerHTML = cartHTML;
+            updateCartSummary(subtotal);
+        }
+        
+        function updateCartSummary(subtotal) {
+            const shipping = subtotal > 0 ? 25 : 0;
+            const tax = subtotal * 0.1; // 10% tax
+            const total = subtotal + shipping + tax;
+            
+            document.getElementById('subtotal').textContent = `k${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `k${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `k${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `k${total.toFixed(2)}`;
+        }
+        
+        function increaseQuantity(productId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                item.quantity += 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCartItems();
+                updateCartCount();
+                showNotification('Quantity increased');
+            }
+        }
+        
+        function decreaseQuantity(productId) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            
+            if (itemIndex !== -1) {
+                if (cart[itemIndex].quantity > 1) {
+                    cart[itemIndex].quantity -= 1;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCartItems();
+                    updateCartCount();
+                    showNotification('Quantity decreased');
+                } else {
+                    removeItem(productId);
+                }
+            }
+        }
+        
+        function removeItem(productId) {
+            if (confirm('Are you sure you want to remove this item from your cart?')) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const itemIndex = cart.findIndex(item => item.id === productId);
+                
+                if (itemIndex !== -1) {
+                    const removedItem = cart.splice(itemIndex, 1)[0];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCartItems();
+                    updateCartCount();
+                    showNotification(`"${removedItem.name}" removed from cart`);
+                }
+            }
+        }
+        
+        function proceedToCheckout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            // Redirect to payment page
+            window.location.href = 'payment.html';
+        }
+        
+        // Load cart items when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>

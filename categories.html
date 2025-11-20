@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - AgriNOVA Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+<header>
+    <div class="container header-container">
+        <div class="logo">
+            <div class="logo-placeholder">AgriNOVA Hub</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                 <li><a href="farmer-marketplace.html">FarmHub</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="search-login">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+            </div>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    🛒
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+                
+                <!-- User Info (shown when logged in) -->
+                <div id="user-info" style="display: none;">
+                    <span id="user-greeting" class="welcome-user"></span>
+                    <button id="logout-btn" class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                
+                <!-- Login/Signup (shown when NOT logged in) -->
+                <div id="auth-buttons">
+                    <a href="signup.html" class="signup-btn">Sign Up</a>
+                    <a href="login.html" class="login-btn">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Categories Hero -->
+    <section class="categories-hero">
+        <div class="container">
+            <h1>Product Categories</h1>
+            <p>Browse our wide range of agricultural products by category</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-content">
+                <a href="index.html">Home</a>
+                <span>→</span>
+                <span>Categories</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+           <div class="categories-grid">
+                <div class="category-card-large" onclick="window.location.href='products.html?category=seeds'">
+                    <div class="category-icon-large" style="background-image: url('images/seeds.jpeg');"></div>
+                    <h3>Seeds</h3>
+                    <p>High-quality seeds for various crops</p>
+                    <span class="product-count">45 products available</span>
+                </div>
+                <div class="category-card-large" onclick="window.location.href='products.html?category=tools'">
+                    <div class="category-icon-large" style="background-image: url('images/tools 1.jpg');"></div>
+                    <h3>Tools & Equipment</h3>
+                    <p>Farming equipment and gardening tools</p>
+                    <span class="product-count">32 products available</span>
+                </div>
+                <div class="category-card-large" onclick="window.location.href='products.html?category=vegetables'">
+                    <div class="category-icon-large" style="background-image: url('images/organic-vegetables.jpg');"></div>
+                    <h3>Fresh Vegetables</h3>
+                    <p>Organic vegetables from local farms</p>
+                    <span class="product-count">28 products available</span>
+                </div>
+                <div class="category-card-large" onclick="window.location.href='products.html?category=rice'">
+                    <div class="category-icon-large" style="background-image: url('images/rice and grans.jpeg');"></div>
+                    <h3>Rice & Grains</h3>
+                    <p>Various rice varieties and grain products</p>
+                    <span class="product-count">15 products available</span>
+                </div>
+                <div class="category-card-large" onclick="window.location.href='products.html'">
+                    <div class="category-icon-large" style="background-image: url('images/saplings and plant 1.jpeg');"></div>
+                    <h3>Saplings & Plants</h3>
+                    <p>Young plants and nursery products</p>
+                    <span class="product-count">22 products available</span>
+                </div>
+                <div class="category-card-large" onclick="window.location.href='products.html'">
+                    <div class="category-icon-large" style="background-image: url('images/fertilizer 2.jpeg');"></div>
+                    <h3>Fertilizers</h3>
+                    <p>Organic and chemical fertilizers</p>
+                    <span class="product-count">18 products available</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">AgriNOVA Hub</div>
+                    <p class="footer-desc">Connecting farmers directly with customers. Fresh, quality agricultural products delivered to your doorstep.</p>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showNotification('FAQ page coming soon!')">FAQ</a></li>
+                        <li><a href="#" onclick="showNotification('Shipping Policy page coming soon!')">Shipping Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Return Policy page coming soon!')">Return Policy</a></li>
+                        <li><a href="#" onclick="showNotification('Privacy Policy page coming soon!')">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3 class="footer-heading">Contact Us</h3>
+                    <div class="contact-info">
+                        <p>5 Cairo Rd, Lusaka 10101</p>
+                        <p>+260 770 554 579</p>
+                        <p>support@agrinovahub.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AgriNOVA Hub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
